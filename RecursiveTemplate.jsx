@@ -40,10 +40,10 @@ function RecursiveFunction() {
 
 
     // recursive helper function
-    function recurseHelper( parent, layer ) {
+    function recurseHelper( parent ) {
 
         // recurse through any sublayers
-        if( layer ) {
+        if( parent.typename == 'Layer' ) {
 
             // get a reference to any sublayers
             var layers = parent.layers;
@@ -52,10 +52,7 @@ function RecursiveFunction() {
                 // get a reference to the current sublayer
                 var subLayer = layers[i];
 
-                // if the sublayer is not locked or hidden, recurse through it
-                if( subLayer.visible && !subLayer.locked ) {
-                    recurseHelper( subLayer, true );
-               }
+                recurseHelper( subLayer );
             }
         }
         // end if parent is a layer
@@ -71,7 +68,7 @@ function RecursiveFunction() {
             if( curItem.typename == 'GroupItem' ) {
 
                 // recurse through the group
-                recurseHelper( curItem, false );
+                recurseHelper( curItem );
 
             } // end if groupItem
 
@@ -151,7 +148,7 @@ function RecursiveFunction() {
 
         // if the layer is not locked or hidden, recurse through it
         if( curLayer.visible && !curLayer.locked ) {
-            recurseHelper( curLayer, true, 0 );
+            recurseHelper( curLayer );
        }
     }
 
